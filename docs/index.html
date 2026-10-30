@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f6f3" />
+    <meta name="description" content="一间虚构的城市阅读角，作为静态网站公网发布测试。" />
+    <title>窗边一页 | 公网发布测试</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172b27;
+        --muted: #60706b;
+        --paper: #f4f6f3;
+        --line: #d8dfd9;
+        --accent: #28725f;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; letter-spacing: 0; }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
+
+      .site-header {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(22px, 5vw, 80px);
+        background: var(--paper);
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; white-space: nowrap; }
+      .brand-mark { display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid var(--accent); border-radius: 50%; color: var(--accent); font: 700 18px Georgia, serif; }
+      .site-nav { display: flex; gap: clamp(20px, 3vw, 42px); font-size: 14px; font-weight: 600; }
+      .site-nav a:hover, .site-nav a:focus-visible { color: var(--accent); }
+
+      .hero {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: min(600px, 65vh);
+        padding: 72px clamp(22px, 8vw, 128px);
+        background: #34413d url("assets/cafe.jpg") center 55% / cover no-repeat;
+        color: white;
+      }
+      .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12, 28, 26, .74) 0%, rgba(12, 28, 26, .42) 37%, rgba(12, 28, 26, .04) 75%); }
+      .hero-content { position: relative; max-width: 580px; }
+      .eyebrow { margin: 0 0 18px; font-size: 13px; font-weight: 700; }
+      h1 { margin: 0; font-size: clamp(42px, 5vw, 68px); line-height: 1.15; font-weight: 700; }
+      .hero p:not(.eyebrow) { max-width: 420px; margin: 22px 0 32px; font-size: 17px; line-height: 1.85; }
+      .primary-link { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px; border-radius: 4px; background: white; color: var(--ink); font-size: 14px; font-weight: 700; }
+      .primary-link:hover, .primary-link:focus-visible { background: #e2eee8; }
+      .primary-link span { font-size: 20px; line-height: 1; }
+
+      .intro { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr); gap: 40px; max-width: 1160px; margin: 0 auto; padding: 78px 28px 84px; }
+      .section-label { margin: 6px 0 0; color: var(--accent); font-size: 13px; font-weight: 700; }
+      .intro h2 { max-width: 700px; margin: 0; font-size: clamp(28px, 3vw, 42px); line-height: 1.4; }
+      .intro-copy { max-width: 650px; margin: 24px 0 0; color: var(--muted); font-size: 16px; line-height: 1.9; }
+
+      .note-band { background: #e6ede7; }
+      .note-inner { display: grid; grid-template-columns: minmax(180px, 1fr) minmax(0, 2fr); gap: 40px; max-width: 1160px; margin: 0 auto; padding: 68px 28px; }
+      .note { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+      .note p { min-height: 84px; margin: 0; font: 28px/1.5 Georgia, "Songti SC", "SimSun", serif; }
+      .shuffle { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid #b9cbbf; border-radius: 4px; background: transparent; color: var(--accent); cursor: pointer; }
+      .shuffle:hover, .shuffle:focus-visible { background: white; }
+      .shuffle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      footer { padding: 28px; text-align: center; color: var(--muted); font-size: 12px; }
+
+      @media (max-width: 680px) {
+        .site-header { height: 64px; }
+        .brand { font-size: 18px; }
+        .site-nav { gap: 16px; font-size: 13px; }
+        .hero { min-height: 560px; max-height: 68vh; padding: 50px 24px; background-position: 58% center; align-items: end; }
+        .hero::before { background: linear-gradient(0deg, rgba(12, 28, 26, .82) 0%, rgba(12, 28, 26, .27) 65%, rgba(12, 28, 26, .02) 100%); }
+        .hero p:not(.eyebrow) { font-size: 15px; }
+        .intro, .note-inner { grid-template-columns: 1fr; gap: 22px; padding: 52px 24px; }
+        .note p { min-height: 120px; font-size: 23px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="窗边一页，回到顶部"><span class="brand-mark" aria-hidden="true">页</span>窗边一页</a>
+      <nav class="site-nav" aria-label="页面导航">
+        <a href="#about">关于</a>
+        <a href="#note">今日一句</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="eyebrow">一间虚构的城市阅读角</p>
+          <h1 id="hero-title">窗边一页</h1>
+          <p>留一点时间给咖啡和书。这里是一张用于测试公网发布的网页，也是一处安静的想象空间。</p>
+          <a class="primary-link" href="#about">往下看看 <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="intro" id="about" aria-labelledby="about-title">
+        <p class="section-label">关于这页</p>
+        <div>
+          <h2 id="about-title">一个小网页，也能抵达很远的地方。</h2>
+          <p class="intro-copy">这是一份独立的静态页面：文字、图片和一点点交互都保存在本地。它不收集信息，也不需要注册。若你正在通过公开链接看到这里，就说明这次发布测试成功了。</p>
+        </div>
+      </section>
+
+      <section class="note-band" id="note" aria-labelledby="note-title">
+        <div class="note-inner">
+          <p class="section-label" id="note-title">今日一句</p>
+          <div class="note">
+            <p id="quote" aria-live="polite">“给自己一点不赶时间的时间。”</p>
+            <button class="shuffle" id="shuffle" type="button" title="换一句" aria-label="换一句">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-2.6a5 5 0 0 0-4.3 2.5l-2.2 4a5 5 0 0 1-4.3 2.5H4"/><path d="m17 4 3 3-3 3M4 7h2.6a5 5 0 0 1 4.3 2.5M14 15.5a5 5 0 0 0 3.4 1.5H20m-3-3 3 3-3 3"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>窗边一页 · 公开访问测试页</footer>
+    <script>
+      const quotes = [
+        '“给自己一点不赶时间的时间。”',
+        '“读到喜欢的一句，就让它多停留一会儿。”',
+        '“窗外是城市，手边是自己的小小世界。”',
+        '“好日子也可以从一杯热咖啡开始。”'
+      ];
+      let quoteIndex = 0;
+      document.querySelector('#shuffle').addEventListener('click', () => {
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+        document.querySelector('#quote').textContent = quotes[quoteIndex];
+      });
+    </script>
+  </body>
+</html>
